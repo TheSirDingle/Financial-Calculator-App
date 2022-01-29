@@ -36,7 +36,7 @@ class queryStuff:
             for stuff in cur:
                 for j in range(len(stuff)):
                     labelcheck = print(stuff)
-                    labelQuery = Label(root, pady = 3, padx = 3,text=stuff[j])
+                    labelQuery = Label(mainFrame, pady = 3, padx = 3,text=stuff[j])
                     labelQuery.pack()
 
                 i = i + 1
@@ -64,11 +64,11 @@ if __name__ == '__main__':
 
     # [redacted]
     connection = mysql.connector.connect(
-        host="[redacted]",
-        port='[redacted]',
-        user='[redacted]',
-        password='[redacted]',
-        database='[redacted]'
+        host="localhost",
+        port=3306,
+        user='root',
+        password='friday01',
+        database='FincCalc'
     )
 
     print(connection)
