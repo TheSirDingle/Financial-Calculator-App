@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import *
-from main import *
+from main import root
 
 # Tax Calculation for single filers
 class taxesSingle:
