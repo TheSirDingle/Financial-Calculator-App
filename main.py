@@ -64,11 +64,11 @@ if __name__ == '__main__':
 
     # [redacted]
     connection = mysql.connector.connect(
-        host="localhost",
-        port=3306,
-        user='root',
-        password='friday01',
-        database='FincCalc'
+        host="[redacted]",
+        port=[redacted],
+        user='[redacted]',
+        password='[redacted]',
+        database='[redacted]'
     )
 
     print(connection)
