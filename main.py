@@ -2,8 +2,19 @@
 import tkinter as tk
 from tkinter import *
 import mysql.connector
-from xtra import *
-root = tk.Tk()
+from incomeTax import *
+
+
+class traversalActions:
+    def __init__(self):
+        self.transversal = "class used for button traversal"
+
+    def returnWindow(self, window, secWind):
+        window.withdraw()
+        secWind.deiconify()
+
+    def raiseFrame(self, frame):
+        frame.tkraise()
 
 class queryStuff:
     def __init__(self):
@@ -34,7 +45,6 @@ class queryStuff:
 
         return labelcheck
 
-
 class buttonStuff:
     def __init__(self):
         self.but = "button stuff for buttons and stuff... stuff"
@@ -43,11 +53,16 @@ class buttonStuff:
     #     myLabel = Label(root, pady = 3, padx = 3, text="Look! I clicked a Buttton!")
     #     myLabel.pack()
 
-
 if __name__ == '__main__':
+
+    root = tk.Tk()
     root.geometry('700x300')
     root.title("Main Menu")
 
+    root.rowconfigure(0, weight=1)
+    root.columnconfigure(0, weight=1)
+
+    # [redacted]
     connection = mysql.connector.connect(
         host="[redacted]",
         port='[redacted]',
@@ -58,33 +73,39 @@ if __name__ == '__main__':
 
     print(connection)
 
-    mainSec = Label(root, text='This section is the main part of the application')
+    mainFrame = tk.Frame(root)
+    mainFrame.grid(row=0, column=0, stick='nsew')
+
+    mainSec = Label(mainFrame, text='This section is the main part of the application')
     mainSec.pack()
-    click = buttonStuff()
-    newGui = taxGui()
+
+    # click = buttonStuff()
+
+    newGui = taxGui(root, mainFrame)
 
     # for tkinter don't put a () after the command in the command part
     # myButton = Button(root, text="Click Me!", command=click.myClick, fg="blue", bg="black")
     # myButton.pack(pady = 4, padx = 4)
 
-    singleButton = Button(root, text="Income Tax Options", command=newGui.OTG, fg="red", bg="black")
+    singleButton = Button(mainFrame, text="Income Tax Options", command=newGui.OTG, fg="red", bg="black")
     singleButton.pack(pady = 4, padx = 4)
 
-    quitButton = Button(root, text="Quit", command=root.destroy)
+    quitButton = Button(mainFrame, text="Quit", command=root.destroy)
     quitButton.pack(pady = 4, padx = 4)
 
     cur = connection.cursor()
 
-    explainQ = Label(root, pady = 3, padx = 3, text="This section is used to query the docker mysql database")
+    explainQ = Label(mainFrame, pady = 3, padx = 3, text="This section is used to query the docker mysql database")
     explainQ.pack()
     column = StringVar()
-    sqlEntry = Entry(root, textvariable=column)
+    sqlEntry = Entry(mainFrame, textvariable=column)
     sqlEntry.pack()
 
     sqlStuff = queryStuff()
 
-    queryButton = Button(root, text='Query the database', command=lambda: sqlStuff.qColumnS(sqlEntry))
+    queryButton = Button(mainFrame, text='Query the database', command=lambda: sqlStuff.qColumnS(sqlEntry))
     queryButton.pack(pady = 10, padx = 10)
 
     root.mainloop()
+
     cur.close()

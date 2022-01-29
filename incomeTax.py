@@ -1,9 +1,9 @@
-import tkinter as tk
 from tkinter import *
-from main import root
+import tkinter as tk
+from main import *
 
 # Tax Calculation for single filers
-class taxesSingle:
+class taxesSingle():
 
     def __init__(self):
         self.tax = "single and ready to get taxed"
@@ -167,38 +167,29 @@ class taxesHOH:
         print("This is what you're taxed: ${0}".format(stuff))
         return stuff
 
-class traversalActions:
-    def __init__(self):
-        self.transversal = "class used for button traversal"
-
-    def returnWindow(self, window, secWind):
-        window.withdraw()
-        secWind.deiconify()
-
-
 # Class for the taxation calculation GUIs
 class taxGui:
-    def __init__(self):
-        self.single = "Damn SON YOUR ABOUT TO GET SCREWED"
+
+    def __init__(self, root, mainframe):
+        self.single = "Nope Lol"
+        self.root = root
+        self.mainframe = mainframe
 
     # Main Window for federal income tax selection
     def OTG(self):
 
-        root.withdraw()
         mainReturn = traversalActions()
 
-        otg = Toplevel(root)
-        otg.geometry('700x300')
-        otg.title("Taxing Type")
+        otg = tk.Frame(self.root)
+        otg.grid(row = 0, column=0, sticky='nsew')
+        mainReturn.raiseFrame(otg)
 
         # Single Tax Filer GUI
         def singGui():
 
-            otg.withdraw()
-
-            window1 = Toplevel(root)
-            window1.geometry('700x300')
-            window1.title('Single Tax Filer')
+            window1 = tk.Frame(self.root)
+            window1.grid(row = 0, column=0, sticky='nsew')
+            mainReturn.raiseFrame(window1)
 
             taxable = IntVar()
             lbl = Label(window1, text="Your total tax will be: ")
@@ -240,7 +231,7 @@ class taxGui:
             singleButton = Button(window1, text="Calculate Tax", command=singTax)
             singleButton.pack()
 
-            singReturn = Button(window1, text="Return back to selection menu", command=lambda: singRet.returnWindow(window1, otg))
+            singReturn = Button(window1, text="Return back to selection menu", command=lambda: singRet.raiseFrame(otg))
             singReturn.pack()
 
             lbl.pack()
@@ -248,11 +239,9 @@ class taxGui:
         # Married Joint Tax Filer GUI
         def MJG():
 
-            otg.withdraw()
-
-            window1 = Toplevel(root)
-            window1.geometry('700x300')
-            window1.title('Married Joint Tax Filer')
+            window1 = tk.Frame(self.root)
+            window1.grid(row=0, column=0, sticky='nsew')
+            mainReturn.raiseFrame(window1)
 
             taxable = IntVar()
             lbl = Label(window1, text="Your total tax will be: ")
@@ -294,7 +283,7 @@ class taxGui:
 
             mjgRet = traversalActions()
 
-            mjgReturn = Button(window1, text="Return back to selection menu",command=lambda: mjgRet.returnWindow(window1, otg))
+            mjgReturn = Button(window1, text="Return back to selection menu",command=lambda: mjgRet.raiseFrame(otg))
             mjgReturn.pack()
 
             lbl.pack()
@@ -302,11 +291,9 @@ class taxGui:
         # Married Single Tax Filer GUI
         def MSG():
 
-            otg.withdraw()
-
-            window1 = Toplevel(root)
-            window1.geometry('700x300')
-            window1.title('Married Single Tax Filer')
+            window1 = tk.Frame(self.root)
+            window1.grid(row=0, column=0, sticky='nsew')
+            mainReturn.raiseFrame(window1)
 
             taxable = IntVar()
             lbl = Label(window1, text="Your total tax will be: ")
@@ -348,7 +335,7 @@ class taxGui:
 
             msgRet = traversalActions()
 
-            msgReturn = Button(window1, text="Return back to selection menu", command=lambda: msgRet.returnWindow(window1, otg))
+            msgReturn = Button(window1, text="Return back to selection menu", command=lambda: msgRet.raiseFrame(otg))
             msgReturn.pack()
 
             lbl.pack()
@@ -356,11 +343,9 @@ class taxGui:
         # Head of Household Tax Filer GUI
         def HOH():
 
-            otg.withdraw()
-
-            window1 = Toplevel(root)
-            window1.geometry('700x300')
-            window1.title('Head of Household Tax Filer')
+            window1 = tk.Frame(self.root)
+            window1.grid(row=0, column=0, sticky='nsew')
+            mainReturn.raiseFrame(window1)
 
             taxable = IntVar()
             lbl = Label(window1, text="Your total tax will be: ")
@@ -402,7 +387,7 @@ class taxGui:
 
             hohRet = traversalActions()
 
-            hohReturn = Button(window1, text="Return back to selection menu", command=lambda: hohRet.returnWindow(window1, otg))
+            hohReturn = Button(window1, text="Return back to selection menu", command=lambda: hohRet.raiseFrame(otg))
             hohReturn.pack()
 
             lbl.pack()
@@ -411,7 +396,7 @@ class taxGui:
         mjgButton = Button(otg, text="Married Joint File Taxer", command=MJG)
         msgButton = Button(otg, text="Married Single File Taxer", command=MSG)
         hohButon = Button(otg, text="Head of Household File Taxer", command=HOH)
-        mainMenuButton = Button(otg, text="Return to main menu", command= lambda : mainReturn.returnWindow(otg, root))
+        mainMenuButton = Button(otg, text="Return to main menu", command= lambda : mainReturn.raiseFrame(self.mainframe))
 
         stButton.pack(pady = 4, padx = 4)
         mjgButton.pack(pady = 4, padx = 4)
